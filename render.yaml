@@ -3,7 +3,7 @@ services:
     name: ai-workbench
     runtime: node
     plan: free
-    buildCommand: npm install --prefix client && npm run build --prefix client && npm install --prefix server
+    buildCommand: npm install --prefix client --include=dev && npm run build --prefix client && npm install --prefix server
     startCommand: npm start --prefix server
     envVars:
       - key: NODE_ENV
