@@ -1,4 +1,4 @@
-# Nano Banana Studio
+# AI Workbench
 
 A web app (and optional Discord bot) for generating images in parallel with
 Google's Gemini image models ("Nano Banana" / "Nano Banana Pro") using a paid
