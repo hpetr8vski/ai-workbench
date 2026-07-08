@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: nano-banana-studio
+    runtime: node
+    plan: free
+    buildCommand: npm install --prefix client && npm run build --prefix client && npm install --prefix server
+    startCommand: npm start --prefix server
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: IMAGE_MODEL
+        value: gemini-3-pro-image-preview
+      - key: MAX_CONCURRENCY
+        value: "4"
+      - key: MAX_UPLOAD_MB
+        value: 50mb
