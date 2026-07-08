@@ -18,3 +18,19 @@ services:
         value: "4"
       - key: MAX_UPLOAD_MB
         value: 50mb
+
+  - type: web
+    name: ai-workbench-bot
+    runtime: node
+    plan: free
+    buildCommand: npm install --prefix bot
+    startCommand: npm start --prefix bot
+    envVars:
+      - key: NODE_VERSION
+        value: 22.11.0
+      - key: DISCORD_BOT_TOKEN
+        sync: false
+      - key: DISCORD_CHANNEL_ID
+        value: "1524056106564059237"
+      - key: GENERATE_SERVER_URL
+        value: https://ai-workbench-0i3b.onrender.com

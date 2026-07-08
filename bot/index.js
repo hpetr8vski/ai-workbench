@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import http from 'http';
 import { Client, GatewayIntentBits, AttachmentBuilder, SlashCommandBuilder, REST, Routes } from 'discord.js';
 
 const BOT_TOKEN = process.env.DISCORD_BOT_TOKEN;
@@ -16,6 +17,20 @@ if (!CHANNEL_ID) {
   console.error('Missing DISCORD_CHANNEL_ID in bot/.env.');
   process.exit(1);
 }
+
+// Free host tiers (e.g. Render) sleep a service after ~15 min with no
+// incoming HTTP traffic. This bot has no reason to receive HTTP requests
+// otherwise, so an external uptime pinger hitting this endpoint is what
+// keeps the process (and its Discord Gateway connection) alive 24/7.
+const KEEPALIVE_PORT = process.env.PORT || 3002;
+http
+  .createServer((_req, res) => {
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end('ok');
+  })
+  .listen(KEEPALIVE_PORT, () => {
+    console.log(`Keep-alive endpoint listening on port ${KEEPALIVE_PORT}`);
+  });
 
 const MODEL_ALIASES = {
   pro: 'gemini-3-pro-image-preview',
