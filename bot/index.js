@@ -23,7 +23,7 @@ if (!CHANNEL_ID) {
 // otherwise, so an external uptime pinger hitting this endpoint is what
 // keeps the process (and its Discord Gateway connection) alive 24/7.
 const KEEPALIVE_PORT = process.env.PORT || 3002;
-http
+const keepAliveServer = http
   .createServer((_req, res) => {
     res.writeHead(200, { 'Content-Type': 'text/plain' });
     res.end('ok');
@@ -239,4 +239,7 @@ client.once('clientReady', async () => {
   }
 });
 
-client.login(BOT_TOKEN);
+client.login(BOT_TOKEN).catch((err) => {
+  console.error(`Discord login failed: ${err.message}`);
+  keepAliveServer.close(() => process.exit(1));
+});
