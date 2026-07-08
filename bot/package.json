@@ -1,0 +1,14 @@
+{
+  "name": "nano-banana-discord-bot",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js"
+  },
+  "dependencies": {
+    "discord.js": "^14.26.4",
+    "dotenv": "^16.4.5"
+  }
+}
